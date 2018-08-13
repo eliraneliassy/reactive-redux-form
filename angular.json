@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "reactive-redux-forms"
+  "defaultProject": "reactive-redux-forms",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
