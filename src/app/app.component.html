@@ -3,9 +3,10 @@
 
   <mat-card>
     <form [formGroup]="form">
-      <div class="row" >
-        <mat-form-field>
-          <mat-select placeholder="Method">
+      <div class="row" *ngFor="let method of form.controls['methods'].value">
+        {{method | json}}
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Method" formControllName="method.methodName">
             <mat-option *ngFor="let option of methodOption">
               {{option.value}}
             </mat-option>
