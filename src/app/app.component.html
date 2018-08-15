@@ -3,16 +3,25 @@
 
   <mat-card>
     <form [formGroup]="form">
-      <div class="row" *ngFor="let method of form.controls['methods'].value">
-        {{method | json}}
-        <mat-form-field class="full-width">
-          <mat-select placeholder="Method" formControllName="method.methodName">
-            <mat-option *ngFor="let option of methodOption">
-              {{option.value}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div formArrayName="methods">
+        <div class="row" *ngFor="let method of methods; let i=index">
+          <div [formGroupName]="i">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Method" formControlName="methodName">
+                <mat-option *ngFor="let option of methodOption" [value]="option.value">
+                  {{option.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngFor="let option of map[method.value.methodName]">
+              <mat-checkbox (change)="addOption(option, i, $event)">{{option}}</mat-checkbox>
+            </div>
+          </div>
+        </div>
       </div>
+
+
+
 
       <div>
         <button class="btn" (click)="addMethod()">
@@ -22,6 +31,8 @@
 
     </form>
   </mat-card>
+
+  {{ form.value | json }}<BR>
 
 </div>
 

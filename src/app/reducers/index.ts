@@ -3,19 +3,35 @@ import {
   ActionReducerMap,
   createFeatureSelector,
   createSelector,
-  MetaReducer
+  MetaReducer,
+  Action
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { FormGroup } from '@angular/forms';
+import { AppActionTypes } from '../app.actions';
 
-export interface State {
+
+export interface AppState {
   form: FormGroup;
 
 }
 
-export const reducers: ActionReducerMap<State> = {
+function appReducer(state: AppState, action): AppState {
+  switch (action.type) {
+    case AppActionTypes.UpdateForm:
+      return {
+        ...state,
+        form: action.payload
+      };
+    default:
+      return state;
+  }
+}
 
-};
+
+  export const reducers: ActionReducerMap<AppState> = {
+    app: appReducer
+  };
 
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+  export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
